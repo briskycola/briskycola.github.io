@@ -1,0 +1,23 @@
+project:
+  type: website
+
+website:
+  title: "Title Here"
+  navbar:
+    left:
+      - href: index.md
+        text: Home
+      - href: blog/index.md
+        text: Blog
+
+format:
+  html:
+    theme:
+      # See: https://quarto.org/docs/output-formats/html-themes.html
+      light: default
+      dark: cyborg
+    css: styles.css
+    toc: true
+
+
+
