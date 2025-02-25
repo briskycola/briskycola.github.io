@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "blog/quarto/index.html",
+    "href": "blog/quarto/index.html",
+    "title": "About Quarto",
+    "section": "",
+    "text": "Quarto is the static site generator used to render this site.\nIt’s documentation is very extensive, and worth reading.\nInteresting/Important bits:\nQuarto has a built in category system\nThis enables users to filter documents by types.\nTheming: https://quarto.org/docs/output-formats/html-themes.html\nAt the top right of this page, there is a toggle between light and dark theme. You can edit the _quarto.yml file to edit the themes used.\nPlugins/Extensions: https://quarto.org/docs/extensions/\nPlugins add functionality to quarto, like being able to embed QR Codes.\nWeb based slides: https://quarto.org/docs/presentations/revealjs/\nI used Reveal JS slides for the presentation"
+  },
+  {
+    "objectID": "blog/markdown/index.html",
+    "href": "blog/markdown/index.html",
+    "title": "Markdown formatting",
+    "section": "",
+    "text": "Markdown is very simple, and many sites, like Reddit, Stackoverflow, or even Discord use some variation of markdown formatting.\nBelow is the Markdown from the presentation, copied and pasted here."
+  },
+  {
+    "objectID": "blog/markdown/index.html#markdown",
+    "href": "blog/markdown/index.html#markdown",
+    "title": "Markdown formatting",
+    "section": "Markdown",
+    "text": "Markdown\n\nMarkdown is markup language\nEnables users to render formatted documents from plaintext\nMost static site generators use markdown"
+  },
+  {
+    "objectID": "blog/markdown/index.html#markdown-code-snippets",
+    "href": "blog/markdown/index.html#markdown-code-snippets",
+    "title": "Markdown formatting",
+    "section": "Markdown Code Snippets",
+    "text": "Markdown Code Snippets\n\n`this is code snippets`\n\nThey result in unformated, monospace text:\n\nthis is code snippets"
+  },
+  {
+    "objectID": "blog/markdown/index.html#markdown-basics",
+    "href": "blog/markdown/index.html#markdown-basics",
+    "title": "Markdown formatting",
+    "section": "Markdown Basics",
+    "text": "Markdown Basics\n*italics* = italics\n**bold** = bold\n[linktext](example.com) = linktext"
+  },
+  {
+    "objectID": "blog/markdown/index.html#more-markdwon-basics",
+    "href": "blog/markdown/index.html#more-markdwon-basics",
+    "title": "Markdown formatting",
+    "section": "More Markdwon Basics",
+    "text": "More Markdwon Basics\n\n# top level header\n\ntop level header\n\n\n## lower level header\n\nlower level header"
+  },
+  {
+    "objectID": "blog/markdown/index.html#useful-html-in-markdown",
+    "href": "blog/markdown/index.html#useful-html-in-markdown",
+    "title": "Markdown formatting",
+    "section": "Useful HTML in Markdown",
+    "text": "Useful HTML in Markdown\n&lt;br&gt; = line break\n\n&lt;details&gt;&lt;summary&gt;summary text&lt;/summary&gt;\n\ncollapsable content\n\n&lt;/details&gt;\n\n\n\nsummary text\n\ncollapsable content"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Title Here",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Markdown formatting\n\n\n\n\n\n\nfilter2\n\n\nfilter3\n\n\n\ndescription\n\n\n\n\n\nFeb 23, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nAbout Quarto\n\n\n\n\n\n\nfilter1\n\n\nfilter2\n\n\n\ndescription\n\n\n\n\n\nFeb 20, 2024\n\n\n\n\n\n\nNo matching items"
+  }
+]

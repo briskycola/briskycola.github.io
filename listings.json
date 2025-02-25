@@ -1,0 +1,9 @@
+[
+  {
+    "listing": "/blog/index.html",
+    "items": [
+      "/blog/markdown/index.html",
+      "/blog/quarto/index.html"
+    ]
+  }
+]
