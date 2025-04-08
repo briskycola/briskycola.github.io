@@ -59,7 +59,7 @@ selection. These days, I just use Arch.
 Here is a picture of the laptop running Artix Linux
 with YouTuber DistroTube's rice of DWM.
 
-![Artix Linux with DWM (2022)](R61.png)
+![Artix Linux with DWM (2022)](R61.jpg)
 
 ## Using Linux as a daily driver
 In 2023, when I started my first year of college,
@@ -76,7 +76,7 @@ Windows all together and went full Linux. I continue
 to run this setup to this day and I am able to do
 any task on Linux, even gaming.
 
-![My Current PC](PC2.png)
+![My Current PC](PC.jpg)
 
 ## Conclusion
 Overall, I learned a lot from my experience switching
