@@ -25,7 +25,7 @@
     "href": "index.html#website-structure",
     "title": "Welcome!",
     "section": "Website Structure",
-    "text": "Website Structure\nThis website is structed into three different sections\n\nBlog\nGuides\nProjects\n\nThe Blog is where I document my experiences with different kinds of hardware and software.\nThe Guides are my tutorials on various differnent technologies I am interested in. For example, I did a tutorial on how to setup QEMU/Virt Manager on any Linux distribution.\nThe Projects are where I showcase programs that I have written. Some of them are pretty simple while others are more detailed."
+    "text": "Website Structure\nThis website is structured into three different sections\n\nBlog\nGuides\nProjects\n\nThe Blog is where I document my experiences with different kinds of hardware and software.\nThe Guides are my tutorials on various differnent technologies I am interested in. For example, I did a tutorial on how to setup QEMU/Virt Manager on any Linux distribution.\nThe Projects are where I showcase programs that I have written. Some of them are pretty simple while others are more detailed."
   },
   {
     "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#introduction",
