@@ -1,0 +1,15 @@
+---
+title: "Projects"
+description: "Here are all my personal projects. Some are quite simple while others are more advanced."
+listing:
+  contents: ./*/*.qmd
+  sort: "date desc"
+  type: table
+  categories: false
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
+
+

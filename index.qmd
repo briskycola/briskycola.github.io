@@ -1,0 +1,37 @@
+---
+title: "Welcome!"
+page-layout: full
+title-block-banner: true
+---
+
+## About Me
+Hello, I'm Santiago Torres and this is my website! I'm a Computer Science
+student with a strong interest in programming, cybersecurity, and Linux.
+I’ve always been fascinated by how technology works and how different systems
+interact with each other. Through my studies, I’ve gained a solid foundation
+in various programming languages and software development practices.
+I'm particularly passionate about cybersecurity, constantly exploring ways to
+protect and secure various different systems. Additionally, I enjoy working
+with Linux, which has broadened my understanding of operating systems and
+system-level programming. This website serves as a collection of my projects,
+guides, and experiences as I continue to learn and grow in these fields.
+I hope to not only improve my technical skills but also contribute to the
+larger tech community in the future.
+
+
+## Website Structure
+This website is structed into three different sections
+
+1. Blog
+2. Guides
+3. Projects
+
+The Blog is where I document my experiences with different kinds of
+hardware and software.
+
+The Guides are my tutorials on various differnent technologies I am
+interested in. For example, I did a tutorial on how to setup QEMU/Virt Manager
+on any Linux distribution.
+
+The Projects are where I showcase programs that I have written. Some of them
+are pretty simple while others are more detailed.

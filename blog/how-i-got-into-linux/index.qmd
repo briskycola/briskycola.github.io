@@ -1,0 +1,87 @@
+---
+title: "How I Got Into Linux"
+author: "Santiago Torres"
+date: "2025-04-07"
+toc: true
+title-block-banner: true
+---
+
+## Introduction
+I'm often asked how I got into using Linux and the
+command line. I've known about Linux for a very long
+time, but only started using it actively for about
+four years. As I reflect on my experiences, it has
+been one of the most interesting, frustrating, and
+rewarding experiences I've had.
+
+## First Start
+I first discovered Linux in 2020 after becoming
+frustrated with the direction Microsoft was going
+with Windows. With the telemetry in Windows becoming
+worse and worse, I was starting to question Microsoft's
+plans with the OS and ultimately came to the conclusion
+that the old days of Windows were over, and it was time
+to move on. I would sometimes try Linux on my main PC,
+but would ultimately go back to Windows due to issues
+with Linux. For example, I would have issues with the
+Nvidia drivers (they are much better now). Looking back,
+those issues may have been my fault, but I didn't
+know at the time.
+
+As a result of my failures using Linux, I began to
+dislike it. I thought it was a terrible OS and it would
+never become mainstream. However, the more I thought
+about it, the more ridiculous it seemed. If Linux
+was so bad, how could it still be around today, and
+how could there be so many zealots claiming it was
+the greatest thing to have ever been conceived by
+mankind?
+
+## Learning Linux (The Right Way)
+In 2022, my high school's IT department were
+getting rid of old laptops, and I was able to get one for
+free. It was a ThinkPad R61 from 2008. Not knowing what to
+do with the computer, I remembered that I could install
+Linux on this thing. Windows 10 would have been slow
+and I could learn Linux while keeping my current PC
+intact.
+
+From there, I tried all of the easy to use distributions
+such as Ubuntu, Linux Mint, and Fedora. Eventually,
+I started to use more advanced distros such as
+Arch, Artix, and Void. Since I was using a much older
+computer, I started experimenting with tiling window
+managers to get a lighter graphical environment.
+After testing all of these distros, I realized that
+I liked Arch based distros the best, due to the
+release cycle, customizability, and wide software
+selection. These days, I just use Arch.
+Here is a picture of the laptop running Artix Linux
+with YouTuber DistroTube's rice of DWM.
+
+![Artix Linux with DWM (2022)](R61.png)
+
+## Using Linux as a daily driver
+In 2023, when I started my first year of college,
+I built a new gaming PC to replace my old build
+from 2017. This was a high-end build, and it has
+an i5-13600KF, 32GB DDR5 6000 MT/s, and
+an RX 7900 XT. When I built this PC, I wanted to
+try Linux on it. Since I had an AMD graphics card,
+I was going to have a much better experience due to
+the better drivers. I was already good with Linux,
+so I installed Arch Linux on a second drive. I kept
+this setup for a while until I eventually ditched
+Windows all together and went full Linux. I continue
+to run this setup to this day and I am able to do
+any task on Linux, even gaming.
+
+![My Current PC](PC2.png)
+
+## Conclusion
+Overall, I learned a lot from my experience switching
+to Linux. While there were definitely times it was
+frustrating, I gained a lot of valuable skills, such
+as using the command line and troubleshooting skills.
+This has been my story of how I got into Linux. I hope
+you enjoyed reading through my journey with Linux.
