@@ -1,0 +1,163 @@
+[
+  {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Date\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nApr 5, 2025\n\n\nDecoding a UTF-8 Hex String Into It’s Unicode Code Print\n\n\nSantiago Torres\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome!",
+    "section": "",
+    "text": "Hello, I’m Santiago Torres and this is my website! I’m a Computer Science student with a strong interest in programming, cybersecurity, and Linux. I’ve always been fascinated by how technology works and how different systems interact with each other. Through my studies, I’ve gained a solid foundation in various programming languages and software development practices. I’m particularly passionate about cybersecurity, constantly exploring ways to protect and secure various different systems. Additionally, I enjoy working with Linux, which has broadened my understanding of operating systems and system-level programming. This website serves as a collection of my projects, guides, and experiences as I continue to learn and grow in these fields. I hope to not only improve my technical skills but also contribute to the larger tech community in the future."
+  },
+  {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "Welcome!",
+    "section": "",
+    "text": "Hello, I’m Santiago Torres and this is my website! I’m a Computer Science student with a strong interest in programming, cybersecurity, and Linux. I’ve always been fascinated by how technology works and how different systems interact with each other. Through my studies, I’ve gained a solid foundation in various programming languages and software development practices. I’m particularly passionate about cybersecurity, constantly exploring ways to protect and secure various different systems. Additionally, I enjoy working with Linux, which has broadened my understanding of operating systems and system-level programming. This website serves as a collection of my projects, guides, and experiences as I continue to learn and grow in these fields. I hope to not only improve my technical skills but also contribute to the larger tech community in the future."
+  },
+  {
+    "objectID": "index.html#website-structure",
+    "href": "index.html#website-structure",
+    "title": "Welcome!",
+    "section": "Website Structure",
+    "text": "Website Structure\nThis website is structed into three different sections\n\nBlog\nGuides\nProjects\n\nThe Blog is where I document my experiences with different kinds of hardware and software.\nThe Guides are my tutorials on various differnent technologies I am interested in. For example, I did a tutorial on how to setup QEMU/Virt Manager on any Linux distribution.\nThe Projects are where I showcase programs that I have written. Some of them are pretty simple while others are more detailed."
+  },
+  {
+    "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#introduction",
+    "href": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#introduction",
+    "title": "How To Setup QEMU/Virt Manager On Linux",
+    "section": "Introduction",
+    "text": "Introduction\nSometimes, we find ourselves needing to use a different operating system to accomplish a certain task. For example, you are using Linux and you need to run a program designed for Windows, and the program cannot run under a compatibility layer like WINE. Previously on Linux, for these kinds of scenarios, Virtualbox was used to create virtual machines to run these programs, and while Virtualbox is a great program, it’s quite slow in comparison to QEMU with KVM. In my experience, QEMU with KVM acceleration has given me the best performance compared to other software. This guide will show you in detail how to use QEMU along with Virt Manager to make virtual machines with near-native performance."
+  },
+  {
+    "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#prerequisites",
+    "href": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#prerequisites",
+    "title": "How To Setup QEMU/Virt Manager On Linux",
+    "section": "Prerequisites",
+    "text": "Prerequisites\nYou must have virtualization enabled in your BIOS. This is usually enabled by default but if you want to check, you can run the following command:\nlscpu | grep Virtualization\nIf you have an Intel CPU, it should say VT-x and on an AMD CPU, it should say AMD-V. If you don’t see anything. You will have to go into your BIOS and enable it yourself. If you have an Intel motherboard, you should enable VT-x and if you have an AMD motherboard, you should enable AMD-V. Consult your PC manufacturer or motherboard manual for further instructions."
+  },
+  {
+    "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#installation",
+    "href": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#installation",
+    "title": "How To Setup QEMU/Virt Manager On Linux",
+    "section": "Installation",
+    "text": "Installation\nIt is time to install QEMU along with Virt Manager onto your system. Install the following packages using your distribution’s package manager.\nArch Linux\nsudo pacman -S qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs\nDebian/Ubuntu\nsudo apt install qemu-system virt-manager libvirt-daemon dnsmasq vde2 bridge-utils netcat-openbsd libguestfs-tools\nFedora\nsudo dnf install @virtualization\n\nNon-systemd distributions\nIf you are using a distribution that does not use systemd, you must install the libvirt daemon package that corresponds to your init system. For example, on an Artix Linux system with OpenRC, you must install libvirt-openrc."
+  },
+  {
+    "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#modify-configuration-files",
+    "href": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#modify-configuration-files",
+    "title": "How To Setup QEMU/Virt Manager On Linux",
+    "section": "Modify configuration files",
+    "text": "Modify configuration files\nBefore we start creating virtual machines, we need to make sure that the user has sufficient permissions to use KVM. To do this, we first need to uncomment the following lines in /etc/libvirt/libvirtd.conf\nunix_sock_group = \"libvirt\"\nunix_sock_ro_perms = \"0777\"\nunix_sock_rw_perms = \"0770\"\nAfter making those changes, your user must be part of the libvirt group, run the following command to make the changes:\nsudo usermod -aG libvirt $(whoami)\nIf you are using a Debian/Ubuntu based distribution, you may need to add your user to the kvm group: run the following command to make the changes:\nsudo usermod -aG kvm $(whoami)\nNow we must enable the libvirtd service itself. On most distributions, you can enable the service on startup using systemd:\nsudo systemctl enable libvirtd\nIf you are using a distribution that does not use systemd, you must enable the service using your distribution’s init system.\nAt this point, you must restart your system for the changes to be applied."
+  },
+  {
+    "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#setting-up-the-virtual-machine",
+    "href": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#setting-up-the-virtual-machine",
+    "title": "How To Setup QEMU/Virt Manager On Linux",
+    "section": "Setting up the virtual machine",
+    "text": "Setting up the virtual machine\nOpen Virt Manager and wait for QEMU/KVM to connect. Before we begin creating a virtual machine, we first must make sure that the virtual network adapter is working. To check this, click on QEMU/KVM, then go to Edit -&gt; Connection Details -&gt; Virtual Networks and click the play button to enable the virtual network adapter. Also make sure to check On Boot to ensure that the adapter is always started.\nNow we can begin the process of creating a virtual machine. Go to File -&gt; New Virtual Machine. Make sure local install media is selected and click forward.\nYou will then be prompted to select an ISO image. Go to Browse -&gt; Browse Local and locate your ISO image. Most of the time, it will automatically detect the OS. If it doesn’t, you will have to manually select the OS.\nAfter that, you’ll be asked to allocate RAM and CPUs to the VM. The general rule for allocating RAM is to never go above 50% of your total RAM (Ex: if you have 16GB of RAM, you can allocate at most 8GB). Ignore the number of CPUs for now, we will configure that later.\nThe next step is to configure your storage. You can configure this however you want.\nNow you will get a message to confirm the VM settings. We are not done with the configuration just yet. We are going to change some of the VM settings. Make sure to check Customize configuration before install and click Finish."
+  },
+  {
+    "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#customizing-virtual-machine-settings",
+    "href": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#customizing-virtual-machine-settings",
+    "title": "How To Setup QEMU/Virt Manager On Linux",
+    "section": "Customizing virtual machine settings",
+    "text": "Customizing virtual machine settings\n\nChanging firmware to UEFI\nWe will start with changing the firmware settings. I personally like to set the firmware to UEFI because every modern computer uses UEFI and many operating systems expect UEFI. This change is optional unless your guest OS requires UEFI.\n\n\nModifying CPU topology\nThe next setting we will change is the CPU. The reason we didn’t allocate CPU cores ahead of time is because for some reason, Virt Manager allocates sockets instead of cores and threads. In other words, the guest OS will think there are multiple physical CPUs. We will modify the topology to allocate cores and threads instead. Similar to allocating RAM, do not go above 50% of your total CPU threads. To view the total threads allocated, look at vCPU allocation\n\n\nChanging disk interface\nNext we will change the disk interface. The VirtIO interface is recommended as it is a paravirtualized interface, which makes it faster compared to using the emulated SATA interface.\n\n\nSelecting graphics adapter\nThere are two options for the graphics adapter. You can use either Virtio or QXL. Virtio has 3D acceleration and QXL only has 2D acceleration. You can use the driver that works best with your use case.\n\n\nAdding a second CD/DVD Drive (Windows Guests Only)\nWindows does not come with VirtIO drivers. Because of this, we need to install the drivers manually during Windows setup. The virtio drivers for Windows can be found here. To add a second CD/DVD drive, go to Add Hardware -&gt; Storage -&gt; change device type to CDROM device -&gt; click Manage and locate the VirtIO drivers.\n\n\nAdding a TPM Module (Windows 11 Guests Only)\nWindows 11 requires a TPM Module in order to be installed. Thankfully, you can emulate a TPM using swtpm. Use your distribution’s package manager to install swtpm. To add the TPM to the VM, go to Add Hardware -&gt; TPM -&gt; and use the default settings."
+  },
+  {
+    "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#installing-the-operating-system",
+    "href": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#installing-the-operating-system",
+    "title": "How To Setup QEMU/Virt Manager On Linux",
+    "section": "Installing the operating system",
+    "text": "Installing the operating system\nNow you can click Begin Installation and from here, install the OS as you would on a physical computer. I’m installing Windows Server 2022. \n\nInstalling VirtIO drivers (Windows Guests Only)\nEarlier I mentioned that we needed to add a second CD/DVD drive for the VirtIO drivers. You may have noticed that Windows didn’t detect the disk. This is where the second CD/DVD drive comes in. To install the drivers, go to Load Driver -&gt; Ok and you will get a list of available drivers. Install the driver that cooresponds to your version of Windows. From here you can continue with the Windows install normally. \n\n\nInstall graphics drivers (Windows Guests Only)\nOnce Windows is fully installed, we will need to install the graphics drivers. In File Explorer, go to the drive labeled as virtio-win-x.x.xxx and run virtio-win-guest-tools.exe"
+  },
+  {
+    "objectID": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#conclusion",
+    "href": "guides/how-to-setup-qemu-virt-manager-tutorial/index.html#conclusion",
+    "title": "How To Setup QEMU/Virt Manager On Linux",
+    "section": "Conclusion",
+    "text": "Conclusion\nYou have now successfully created a virtual machine using QEMU/Virt Manager. This VM will have near-native performance with very little emulation overhead. Here is a screenshot of the VM with all of the necessary drivers."
+  },
+  {
+    "objectID": "blog/how-i-got-into-linux/index.html",
+    "href": "blog/how-i-got-into-linux/index.html",
+    "title": "How I Got Into Linux",
+    "section": "",
+    "text": "I’m often asked how I got into using Linux and the command line. I’ve known about Linux for a very long time, but only started using it actively for about four years. As I reflect on my experiences, it has been one of the most interesting, frustrating, and rewarding experiences I’ve had."
+  },
+  {
+    "objectID": "blog/how-i-got-into-linux/index.html#introduction",
+    "href": "blog/how-i-got-into-linux/index.html#introduction",
+    "title": "How I Got Into Linux",
+    "section": "",
+    "text": "I’m often asked how I got into using Linux and the command line. I’ve known about Linux for a very long time, but only started using it actively for about four years. As I reflect on my experiences, it has been one of the most interesting, frustrating, and rewarding experiences I’ve had."
+  },
+  {
+    "objectID": "blog/how-i-got-into-linux/index.html#first-start",
+    "href": "blog/how-i-got-into-linux/index.html#first-start",
+    "title": "How I Got Into Linux",
+    "section": "First Start",
+    "text": "First Start\nI first discovered Linux in 2020 after becoming frustrated with the direction Microsoft was going with Windows. With the telemetry in Windows becoming worse and worse, I was starting to question Microsoft’s plans with the OS and ultimately came to the conclusion that the old days of Windows were over, and it was time to move on. I would sometimes try Linux on my main PC, but would ultimately go back to Windows due to issues with Linux. For example, I would have issues with the Nvidia drivers (they are much better now). Looking back, those issues may have been my fault, but I didn’t know at the time.\nAs a result of my failures using Linux, I began to dislike it. I thought it was a terrible OS and it would never become mainstream. However, the more I thought about it, the more ridiculous it seemed. If Linux was so bad, how could it still be around today, and how could there be so many zealots claiming it was the greatest thing to have ever been conceived by mankind?"
+  },
+  {
+    "objectID": "blog/how-i-got-into-linux/index.html#learning-linux-the-right-way",
+    "href": "blog/how-i-got-into-linux/index.html#learning-linux-the-right-way",
+    "title": "How I Got Into Linux",
+    "section": "Learning Linux (The Right Way)",
+    "text": "Learning Linux (The Right Way)\nIn 2022, my high school’s IT department were getting rid of old laptops, and I was able to get one for free. It was a ThinkPad R61 from 2008. Not knowing what to do with the computer, I remembered that I could install Linux on this thing. Windows 10 would have been slow and I could learn Linux while keeping my current PC intact.\nFrom there, I tried all of the easy to use distributions such as Ubuntu, Linux Mint, and Fedora. Eventually, I started to use more advanced distros such as Arch, Artix, and Void. Since I was using a much older computer, I started experimenting with tiling window managers to get a lighter graphical environment. After testing all of these distros, I realized that I liked Arch based distros the best, due to the release cycle, customizability, and wide software selection. These days, I just use Arch. Here is a picture of the laptop running Artix Linux with YouTuber DistroTube’s rice of DWM.\n\n\n\nArtix Linux with DWM (2022)"
+  },
+  {
+    "objectID": "blog/how-i-got-into-linux/index.html#using-linux-as-a-daily-driver",
+    "href": "blog/how-i-got-into-linux/index.html#using-linux-as-a-daily-driver",
+    "title": "How I Got Into Linux",
+    "section": "Using Linux as a daily driver",
+    "text": "Using Linux as a daily driver\nIn 2023, when I started my first year of college, I built a new gaming PC to replace my old build from 2017. This was a high-end build, and it has an i5-13600KF, 32GB DDR5 6000 MT/s, and an RX 7900 XT. When I built this PC, I wanted to try Linux on it. Since I had an AMD graphics card, I was going to have a much better experience due to the better drivers. I was already good with Linux, so I installed Arch Linux on a second drive. I kept this setup for a while until I eventually ditched Windows all together and went full Linux. I continue to run this setup to this day and I am able to do any task on Linux, even gaming.\n\n\n\nMy Current PC"
+  },
+  {
+    "objectID": "blog/how-i-got-into-linux/index.html#conclusion",
+    "href": "blog/how-i-got-into-linux/index.html#conclusion",
+    "title": "How I Got Into Linux",
+    "section": "Conclusion",
+    "text": "Conclusion\nOverall, I learned a lot from my experience switching to Linux. While there were definitely times it was frustrating, I gained a lot of valuable skills, such as using the command line and troubleshooting skills. This has been my story of how I got into Linux. I hope you enjoyed reading through my journey with Linux."
+  },
+  {
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Date\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nApr 7, 2025\n\n\nHow I Got Into Linux\n\n\nSantiago Torres\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "guides/index.html",
+    "href": "guides/index.html",
+    "title": "Guides",
+    "section": "",
+    "text": "Date\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nApr 7, 2025\n\n\nHow To Setup QEMU/Virt Manager On Linux\n\n\nSantiago Torres\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/decode-utf8/index.html",
+    "href": "projects/decode-utf8/index.html",
+    "title": "Decoding a UTF-8 Hex String Into It’s Unicode Code Print",
+    "section": "",
+    "text": "This program decodes a UTF-8 string and returns it’s corresponding Unicode code point (Ex: the string 0xCE, 0xA9 returns U+03A9). The goal for this program is to explain the concept of UTF-8 and the process of decoding a UTF-8 string into a Unicode character at the bit level.\n\n\nUTF-8 is an encoding standard that is used for electronic communication. It is most commonly used for encoding characters, using a variable-length encoding ranging from one to four bytes. It is an extention to the original ASCII standard and it is also backwards compatible. There was also another encoding aimed to extend ASCII known as ISO/IEC 8859, however, it was quickly taken over by UTF-8 due to it’s fragmented design. The problem with ISO 8859 was that it had different versions for specific regions, which made it impossible to mix different languages in one document.\n\n\n\nTo begin decoding, we must convert our string to binary and then combine them into 8-bit chunks. This is not done in the code, but it is shown here to demonstrate the concept. Ex: CEA9\n0xCE        0xA9\n1100 1110   1010 1001\n11001110    10101001\nThe first byte is very important. It will determine how many bytes there are in the string. This will be necessary to determine the number of continuation bits. Here is a chart which shows the number of bytes in the string as determined by the first bit.\n\n\n\nFirst Byte\nbytes\n\n\n\n\n0 xxxxxxx\n1\n\n\n110 xxxxx\n2\n\n\n1110 xxxx\n3\n\n\n11110 xxx\n4\n\n\n\nHere are the conditions in the code to check for this at the bit level\nif      (0x00 &lt;= value && value &lt;= 0x7F)    retval = 1;\nelse if (0xC0 &lt;= value && value &lt;= 0xDF)    retval = 2;\nelse if (0xE0 &lt;= value && value &lt;= 0xEF)    retval = 3;\nelse if (0xF0 &lt;= value && value &lt;= 0xF7)    retval = 4;\nelse                                        retval = 0;\n\nreturn retval;\nIn this case, the first byte is prefixed with 110\n1100 - 1110    10 - 101001\nNotice that the last byte is prefixed with 10. This is a continuation byte. Every continuation byte is prefixed with 10. In the program, we use the following conditon to check if the continuation bits are valid. But first, we must eliminate the framing bits from the first byte, which in this case are 110x - xxxx. The following conditions is used to do this.\nif      (0x00 &lt;= value && value &lt;= 0x7F)    retval = value;\nelse if (0xC0 &lt;= value && value &lt;= 0xDF)    retval = value & 0x1F;\nelse if (0xE0 &lt;= value && value &lt;= 0xEF)    retval = value & 0xF;\nelse if (0xF0 &lt;= value && value &lt;= 0xF7)    retval = value & 0x7;\nelse                                        retval = 0;\n\nreturn retval;\n\nsum += bytes[0];    // this is done outside of the function\n                    // once the framing bits are eliminated.\nand to check if the continuation bytes are valid\nvalue = value & 0xC0;   // apply a bitwise AND to only keep the 10 in 10xx xxxx\nif (value == 0x80) retval = 1;\nreturn retval;\nFinally, we removing the framing bits from the continuation bytes and sum all of the bytes, which will equal our Unicode character in hexadecimal.\n// removing framing bits\nbytes[i] = bytes[i] & 0x3F;\n\n// add to sum\nsum = sum &lt;&lt; 6;     // apply a left-shift operation to easily add the bits to the sum\nsum += bytes[i];    // add the bits to the sum\nNow we get our final value\n1110 101001\nU+03A9"
+  },
+  {
+    "objectID": "projects/decode-utf8/index.html#background",
+    "href": "projects/decode-utf8/index.html#background",
+    "title": "Decoding a UTF-8 Hex String Into It’s Unicode Code Print",
+    "section": "",
+    "text": "UTF-8 is an encoding standard that is used for electronic communication. It is most commonly used for encoding characters, using a variable-length encoding ranging from one to four bytes. It is an extention to the original ASCII standard and it is also backwards compatible. There was also another encoding aimed to extend ASCII known as ISO/IEC 8859, however, it was quickly taken over by UTF-8 due to it’s fragmented design. The problem with ISO 8859 was that it had different versions for specific regions, which made it impossible to mix different languages in one document."
+  },
+  {
+    "objectID": "projects/decode-utf8/index.html#decoding-process",
+    "href": "projects/decode-utf8/index.html#decoding-process",
+    "title": "Decoding a UTF-8 Hex String Into It’s Unicode Code Print",
+    "section": "",
+    "text": "To begin decoding, we must convert our string to binary and then combine them into 8-bit chunks. This is not done in the code, but it is shown here to demonstrate the concept. Ex: CEA9\n0xCE        0xA9\n1100 1110   1010 1001\n11001110    10101001\nThe first byte is very important. It will determine how many bytes there are in the string. This will be necessary to determine the number of continuation bits. Here is a chart which shows the number of bytes in the string as determined by the first bit.\n\n\n\nFirst Byte\nbytes\n\n\n\n\n0 xxxxxxx\n1\n\n\n110 xxxxx\n2\n\n\n1110 xxxx\n3\n\n\n11110 xxx\n4\n\n\n\nHere are the conditions in the code to check for this at the bit level\nif      (0x00 &lt;= value && value &lt;= 0x7F)    retval = 1;\nelse if (0xC0 &lt;= value && value &lt;= 0xDF)    retval = 2;\nelse if (0xE0 &lt;= value && value &lt;= 0xEF)    retval = 3;\nelse if (0xF0 &lt;= value && value &lt;= 0xF7)    retval = 4;\nelse                                        retval = 0;\n\nreturn retval;\nIn this case, the first byte is prefixed with 110\n1100 - 1110    10 - 101001\nNotice that the last byte is prefixed with 10. This is a continuation byte. Every continuation byte is prefixed with 10. In the program, we use the following conditon to check if the continuation bits are valid. But first, we must eliminate the framing bits from the first byte, which in this case are 110x - xxxx. The following conditions is used to do this.\nif      (0x00 &lt;= value && value &lt;= 0x7F)    retval = value;\nelse if (0xC0 &lt;= value && value &lt;= 0xDF)    retval = value & 0x1F;\nelse if (0xE0 &lt;= value && value &lt;= 0xEF)    retval = value & 0xF;\nelse if (0xF0 &lt;= value && value &lt;= 0xF7)    retval = value & 0x7;\nelse                                        retval = 0;\n\nreturn retval;\n\nsum += bytes[0];    // this is done outside of the function\n                    // once the framing bits are eliminated.\nand to check if the continuation bytes are valid\nvalue = value & 0xC0;   // apply a bitwise AND to only keep the 10 in 10xx xxxx\nif (value == 0x80) retval = 1;\nreturn retval;\nFinally, we removing the framing bits from the continuation bytes and sum all of the bytes, which will equal our Unicode character in hexadecimal.\n// removing framing bits\nbytes[i] = bytes[i] & 0x3F;\n\n// add to sum\nsum = sum &lt;&lt; 6;     // apply a left-shift operation to easily add the bits to the sum\nsum += bytes[i];    // add the bits to the sum\nNow we get our final value\n1110 101001\nU+03A9"
+  }
+]
