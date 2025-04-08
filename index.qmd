@@ -20,7 +20,7 @@ larger tech community in the future.
 
 
 ## Website Structure
-This website is structed into three different sections
+This website is structured into three different sections
 
 1. Blog
 2. Guides
