@@ -5,9 +5,7 @@ website:
   title: "Santiago Torres"
   navbar:
     left:
-        - blog/index.qmd
-        - guides/index.qmd
-        - projects/index.qmd
+        - posts/index.qmd
     right:
         - icon: github
           href: https://github.com/briskycola

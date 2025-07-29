@@ -20,13 +20,9 @@ larger tech community in the future.
 
 
 ## Website Structure
-This website is structured into three different sections
+This website serves as a repository for my blogs, guides, and projects
 
-1. Blog
-2. Guides
-3. Projects
-
-The Blog is where I document my experiences with different kinds of
+The Blogs are where I document my experiences with different kinds of
 hardware and software.
 
 The Guides are my tutorials on various differnent technologies I am

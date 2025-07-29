@@ -1,6 +1,6 @@
 ---
-title: "Projects"
-description: "Here are all my personal projects. Some are quite simple while others are more advanced."
+title: "Posts"
+description: "Here are all my posts. These can range from blogs, guides, to projects"
 listing:
   contents: ./*/*.qmd
   sort: "date desc"
