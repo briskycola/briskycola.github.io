@@ -49,13 +49,22 @@ Here is a chart which shows the number of bytes in the string as determined by t
 
 Here are the conditions in the code to check for this at the bit level
 ```c
-if      (0x00 <= value && value <= 0x7F)    retval = 1;
-else if (0xC0 <= value && value <= 0xDF)    retval = 2;
-else if (0xE0 <= value && value <= 0xEF)    retval = 3;
-else if (0xF0 <= value && value <= 0xF7)    retval = 4;
-else                                        retval = 0;
+#define UTF8_BYTE_ONE_MIN   0x00
+#define UTF8_BYTE_ONE_MAX   0x7F
+#define UTF8_BYTE_TWO_MIN   0xC0
+#define UTF8_BYTE_TWO_MAX   0xDF
+#define UTF8_BYTE_THREE_MIN 0xE0
+#define UTF8_BYTE_THREE_MAX 0xEF
+#define UTF8_BYTE_FOUR_MIN  0xF0
+#define UTF8_BYTE_FOUR_MAX  0xF7
 
-return retval;
+uint8_t returnValue;
+if      (UTF8_BYTE_ONE_MIN <= value && value <= UTF8_BYTE_ONE_MAX)        returnValue = 1;
+else if (UTF8_BYTE_TWO_MIN <= value && value <= UTF8_BYTE_TWO_MAX)        returnValue = 2;
+else if (UTF8_BYTE_THREE_MIN <= value && value <= UTF8_BYTE_THREE_MAX)    returnValue = 3;
+else if (UTF8_BYTE_FOUR_MIN <= value && value <= UTF8_BYTE_FOUR_MAX)      returnValue = 4;
+else                                                                      returnValue = 0;
+return returnValue;
 ```
 
 In this case, the first byte is prefixed with 110
@@ -70,13 +79,22 @@ the framing bits from the first byte, which in this case are 110x - xxxx.
 The following conditions is used to do this.
 
 ```c
-if      (0x00 <= value && value <= 0x7F)    retval = value;
-else if (0xC0 <= value && value <= 0xDF)    retval = value & 0x1F;
-else if (0xE0 <= value && value <= 0xEF)    retval = value & 0xF;
-else if (0xF0 <= value && value <= 0xF7)    retval = value & 0x7;
-else                                        retval = 0;
+#define UTF8_BYTE_ONE_MIN   0x00
+#define UTF8_BYTE_ONE_MAX   0x7F
+#define UTF8_BYTE_TWO_MIN   0xC0
+#define UTF8_BYTE_TWO_MAX   0xDF
+#define UTF8_BYTE_THREE_MIN 0xE0
+#define UTF8_BYTE_THREE_MAX 0xEF
+#define UTF8_BYTE_FOUR_MIN  0xF0
+#define UTF8_BYTE_FOUR_MAX  0xF7
 
-return retval;
+uint8_t returnValue;
+if      (UTF8_BYTE_ONE_MIN <= value && value <= UTF8_BYTE_ONE_MAX)        returnValue = value;
+else if (UTF8_BYTE_TWO_MIN <= value && value <= UTF8_BYTE_TWO_MAX)        returnValue = value & UTF8_BYTE_TWO_MASK;
+else if (UTF8_BYTE_THREE_MIN <= value && value <= UTF8_BYTE_THREE_MAX)    returnValue = value & UTF8_BYTE_THREE_MASK;
+else if (UTF8_BYTE_FOUR_MIN <= value && value <= UTF8_BYTE_FOUR_MAX)      returnValue = value & UTF8_BYTE_FOUR_MASK;
+else                                                                      returnValue = 0;
+return returnValue;
 
 sum += bytes[0];    // this is done outside of the function
                     // once the framing bits are eliminated.
@@ -85,21 +103,26 @@ sum += bytes[0];    // this is done outside of the function
 and to check if the continuation bytes are valid
 
 ```c
-value = value & 0xC0;   // apply a bitwise AND to only keep the 10 in 10xx xxxx
-if (value == 0x80) retval = 1;
-return retval;
+// apply a bitwise AND to only keep the 10 in 10xx xxxx
+// and then return 0 or 1
+#define UTF8_DATA_BIT_MASK         0xC0
+#define UTF8_CONTINUATION_BIT_MASK 0x80
+return ((value & UTF8_DATA_BIT_MASK) == UTF8_CONTINUATION_BIT_MASK);
 ```
 
 Finally, we removing the framing bits from the continuation bytes
 and sum all of the bytes, which will equal our Unicode character in hexadecimal.
 
 ```c
+#define UTF8_FRAMING_BIT_MASK 0x3F
+#define UTF8_SHIFT_LENGTH     0x06
+
 // removing framing bits
-bytes[i] = bytes[i] & 0x3F;
+bytes[i] = bytes[i] & UTF8_FRAMING_BIT_MASK;
 
 // add to sum
-sum = sum << 6;     // apply a left-shift operation to easily add the bits to the sum
-sum += bytes[i];    // add the bits to the sum
+sum = sum << UTF8_SHIFT_LENGTH; // apply a left-shift operation to easily add the bits to the sum
+sum += bytes[i];                // add the bits to the sum
 ```
 
 Now we get our final value
