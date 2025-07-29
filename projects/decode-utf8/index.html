@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.23">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,10 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-7271f29f9498218151f3120baddb7363.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-4d53759df0235fab40725893b4bcea96.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-cdc20dc9f723c287ca0aee46bb958529.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -245,37 +245,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 <p>Here are the conditions in the code to check for this at the bit level</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>      <span class="op">(</span><span class="bn">0x00</span> <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> <span class="bn">0x7F</span><span class="op">)</span>    retval <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span><span class="bn">0xC0</span> <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> <span class="bn">0xDF</span><span class="op">)</span>    retval <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span><span class="bn">0xE0</span> <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> <span class="bn">0xEF</span><span class="op">)</span>    retval <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span><span class="bn">0xF0</span> <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> <span class="bn">0xF7</span><span class="op">)</span>    retval <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>                                        retval <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> retval<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_ONE_MIN   </span><span class="bn">0x00</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_ONE_MAX   </span><span class="bn">0x7F</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_TWO_MIN   </span><span class="bn">0xC0</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_TWO_MAX   </span><span class="bn">0xDF</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_THREE_MIN </span><span class="bn">0xE0</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_THREE_MAX </span><span class="bn">0xEF</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_FOUR_MIN  </span><span class="bn">0xF0</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_FOUR_MAX  </span><span class="bn">0xF7</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> returnValue<span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>      <span class="op">(</span>UTF8_BYTE_ONE_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_ONE_MAX<span class="op">)</span>        returnValue <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_TWO_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_TWO_MAX<span class="op">)</span>        returnValue <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_THREE_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_THREE_MAX<span class="op">)</span>    returnValue <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_FOUR_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_FOUR_MAX<span class="op">)</span>      returnValue <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>                                                                      returnValue <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> returnValue<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In this case, the first byte is prefixed with 110</p>
 <pre><code>1100 - 1110    10 - 101001</code></pre>
 <p>Notice that the last byte is prefixed with 10. This is a continuation byte. Every continuation byte is prefixed with 10. In the program, we use the following conditon to check if the continuation bits are valid. But first, we must eliminate the framing bits from the first byte, which in this case are 110x - xxxx. The following conditions is used to do this.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>      <span class="op">(</span><span class="bn">0x00</span> <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> <span class="bn">0x7F</span><span class="op">)</span>    retval <span class="op">=</span> value<span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span><span class="bn">0xC0</span> <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> <span class="bn">0xDF</span><span class="op">)</span>    retval <span class="op">=</span> value <span class="op">&amp;</span> <span class="bn">0x1F</span><span class="op">;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span><span class="bn">0xE0</span> <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> <span class="bn">0xEF</span><span class="op">)</span>    retval <span class="op">=</span> value <span class="op">&amp;</span> <span class="bn">0xF</span><span class="op">;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span><span class="bn">0xF0</span> <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> <span class="bn">0xF7</span><span class="op">)</span>    retval <span class="op">=</span> value <span class="op">&amp;</span> <span class="bn">0x7</span><span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>                                        retval <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> retval<span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>sum <span class="op">+=</span> bytes<span class="op">[</span><span class="dv">0</span><span class="op">];</span>    <span class="co">// this is done outside of the function</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                    <span class="co">// once the framing bits are eliminated.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_ONE_MIN   </span><span class="bn">0x00</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_ONE_MAX   </span><span class="bn">0x7F</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_TWO_MIN   </span><span class="bn">0xC0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_TWO_MAX   </span><span class="bn">0xDF</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_THREE_MIN </span><span class="bn">0xE0</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_THREE_MAX </span><span class="bn">0xEF</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_FOUR_MIN  </span><span class="bn">0xF0</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_FOUR_MAX  </span><span class="bn">0xF7</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> returnValue<span class="op">;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>      <span class="op">(</span>UTF8_BYTE_ONE_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_ONE_MAX<span class="op">)</span>        returnValue <span class="op">=</span> value<span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_TWO_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_TWO_MAX<span class="op">)</span>        returnValue <span class="op">=</span> value <span class="op">&amp;</span> UTF8_BYTE_TWO_MASK<span class="op">;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_THREE_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_THREE_MAX<span class="op">)</span>    returnValue <span class="op">=</span> value <span class="op">&amp;</span> UTF8_BYTE_THREE_MASK<span class="op">;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_FOUR_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_FOUR_MAX<span class="op">)</span>      returnValue <span class="op">=</span> value <span class="op">&amp;</span> UTF8_BYTE_FOUR_MASK<span class="op">;</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>                                                                      returnValue <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> returnValue<span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>sum <span class="op">+=</span> bytes<span class="op">[</span><span class="dv">0</span><span class="op">];</span>    <span class="co">// this is done outside of the function</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                    <span class="co">// once the framing bits are eliminated.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>and to check if the continuation bytes are valid</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>value <span class="op">=</span> value <span class="op">&amp;</span> <span class="bn">0xC0</span><span class="op">;</span>   <span class="co">// apply a bitwise AND to only keep the 10 in 10xx xxxx</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>value <span class="op">==</span> <span class="bn">0x80</span><span class="op">)</span> retval <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> retval<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// apply a bitwise AND to only keep the 10 in 10xx xxxx</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">// and then return 0 or 1</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_DATA_BIT_MASK         </span><span class="bn">0xC0</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_CONTINUATION_BIT_MASK </span><span class="bn">0x80</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> <span class="op">((</span>value <span class="op">&amp;</span> UTF8_DATA_BIT_MASK<span class="op">)</span> <span class="op">==</span> UTF8_CONTINUATION_BIT_MASK<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Finally, we removing the framing bits from the continuation bytes and sum all of the bytes, which will equal our Unicode character in hexadecimal.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// removing framing bits</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>bytes<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> bytes<span class="op">[</span>i<span class="op">]</span> <span class="op">&amp;</span> <span class="bn">0x3F</span><span class="op">;</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_FRAMING_BIT_MASK </span><span class="bn">0x3F</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_SHIFT_LENGTH     </span><span class="bn">0x06</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">// add to sum</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sum <span class="op">=</span> sum <span class="op">&lt;&lt;</span> <span class="dv">6</span><span class="op">;</span>     <span class="co">// apply a left-shift operation to easily add the bits to the sum</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>sum <span class="op">+=</span> bytes<span class="op">[</span>i<span class="op">];</span>    <span class="co">// add the bits to the sum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">// removing framing bits</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>bytes<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> bytes<span class="op">[</span>i<span class="op">]</span> <span class="op">&amp;</span> UTF8_FRAMING_BIT_MASK<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">// add to sum</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>sum <span class="op">=</span> sum <span class="op">&lt;&lt;</span> UTF8_SHIFT_LENGTH<span class="op">;</span> <span class="co">// apply a left-shift operation to easily add the bits to the sum</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>sum <span class="op">+=</span> bytes<span class="op">[</span>i<span class="op">];</span>                <span class="co">// add the bits to the sum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now we get our final value</p>
 <pre><code>1110 101001
 U+03A9</code></pre>
