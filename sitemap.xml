@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://briskycola.github.io/projects/index.html</loc>
-    <lastmod>2025-07-29T22:20:29.613Z</lastmod>
-  </url>
-  <url>
     <loc>https://briskycola.github.io/index.html</loc>
-    <lastmod>2025-07-29T22:20:29.612Z</lastmod>
+    <lastmod>2025-07-29T22:52:11.544Z</lastmod>
   </url>
   <url>
-    <loc>https://briskycola.github.io/guides/how-to-setup-qemu-virt-manager-tutorial/index.html</loc>
-    <lastmod>2025-07-29T22:20:29.589Z</lastmod>
+    <loc>https://briskycola.github.io/posts/how-i-got-into-linux/index.html</loc>
+    <lastmod>2025-07-29T22:50:26.958Z</lastmod>
   </url>
   <url>
-    <loc>https://briskycola.github.io/blog/how-i-got-into-linux/index.html</loc>
-    <lastmod>2025-07-29T22:20:29.588Z</lastmod>
+    <loc>https://briskycola.github.io/posts/index.html</loc>
+    <lastmod>2025-07-29T22:49:30.774Z</lastmod>
   </url>
   <url>
-    <loc>https://briskycola.github.io/blog/index.html</loc>
-    <lastmod>2025-07-29T22:20:29.588Z</lastmod>
+    <loc>https://briskycola.github.io/posts/how-to-setup-qemu-virt-manager-tutorial/index.html</loc>
+    <lastmod>2025-07-29T22:50:14.336Z</lastmod>
   </url>
   <url>
-    <loc>https://briskycola.github.io/guides/index.html</loc>
-    <lastmod>2025-07-29T22:20:29.611Z</lastmod>
-  </url>
-  <url>
-    <loc>https://briskycola.github.io/projects/decode-utf8/index.html</loc>
-    <lastmod>2025-07-29T22:38:16.492Z</lastmod>
+    <loc>https://briskycola.github.io/posts/decode-utf8/index.html</loc>
+    <lastmod>2025-07-29T22:50:33.547Z</lastmod>
   </url>
 </urlset>

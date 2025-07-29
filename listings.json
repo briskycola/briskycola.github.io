@@ -1,20 +1,10 @@
 [
   {
-    "listing": "/projects/index.html",
+    "listing": "/posts/index.html",
     "items": [
-      "/projects/decode-utf8/index.html"
-    ]
-  },
-  {
-    "listing": "/blog/index.html",
-    "items": [
-      "/blog/how-i-got-into-linux/index.html"
-    ]
-  },
-  {
-    "listing": "/guides/index.html",
-    "items": [
-      "/guides/how-to-setup-qemu-virt-manager-tutorial/index.html"
+      "/posts/how-i-got-into-linux/index.html",
+      "/posts/how-to-setup-qemu-virt-manager-tutorial/index.html",
+      "/posts/decode-utf8/index.html"
     ]
   }
 ]
