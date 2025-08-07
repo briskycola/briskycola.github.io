@@ -2,6 +2,8 @@
   {
     "listing": "/posts/index.html",
     "items": [
+      "/posts/setting-up-k8s-with-custom-images/index.html",
+      "/posts/how-to-install-void-linux-with-encryption/index.html",
       "/posts/how-i-got-into-linux/index.html",
       "/posts/how-to-setup-qemu-virt-manager-tutorial/index.html",
       "/posts/decode-utf8/index.html"

@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Santiago Torres">
-<meta name="dcterms.date" content="2025-04-05">
+<meta name="dcterms.date" content="2025-07-27">
 
-<title>Decoding a UTF-8 Hex String Into It’s Unicode Code Print – Santiago Torres</title>
+<title>How To Install Void Linux with LUKS + KDE + PipeWire – Santiago Torres</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,16 +127,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
-<span class="menu-text">Blog</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../projects/index.html"> 
-<span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="../../posts/index.html"> 
+<span class="menu-text">Posts</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -156,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Decoding a UTF-8 Hex String Into It’s Unicode Code Print</h1>
+      <h1 class="title">How To Install Void Linux with LUKS + KDE + PipeWire</h1>
                       </div>
   </div>
     
@@ -173,7 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">April 5, 2025</p>
+        <p class="date">July 27, 2025</p>
       </div>
     </div>
     
@@ -189,10 +181,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#utf-8-decoding-of-unicode" id="toc-utf-8-decoding-of-unicode" class="nav-link active" data-scroll-target="#utf-8-decoding-of-unicode">UTF-8 Decoding of Unicode</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#preparing-the-live-usb" id="toc-preparing-the-live-usb" class="nav-link" data-scroll-target="#preparing-the-live-usb">Preparing the live USB</a></li>
+  <li><a href="#booting-the-installation-usb" id="toc-booting-the-installation-usb" class="nav-link" data-scroll-target="#booting-the-installation-usb">Booting the installation USB</a></li>
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a>
   <ul class="collapse">
-  <li><a href="#background" id="toc-background" class="nav-link" data-scroll-target="#background">Background</a></li>
-  <li><a href="#decoding-process" id="toc-decoding-process" class="nav-link" data-scroll-target="#decoding-process">Decoding Process</a></li>
+  <li><a href="#connecting-to-the-internet" id="toc-connecting-to-the-internet" class="nav-link" data-scroll-target="#connecting-to-the-internet">Connecting to the Internet</a></li>
+  <li><a href="#partitioning-the-disk" id="toc-partitioning-the-disk" class="nav-link" data-scroll-target="#partitioning-the-disk">Partitioning the disk</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -204,104 +200,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<section id="utf-8-decoding-of-unicode" class="level1">
-<h1>UTF-8 Decoding of Unicode</h1>
-<p>This program decodes a UTF-8 string and returns it’s corresponding Unicode code point (Ex: the string 0xCE, 0xA9 returns <code>U+03A9</code>). The goal for this program is to explain the concept of UTF-8 and the process of decoding a UTF-8 string into a Unicode character at the bit level.</p>
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>UTF-8 is an encoding standard that is used for electronic communication. It is most commonly used for encoding characters, using a variable-length encoding ranging from one to four bytes. It is an extention to the original ASCII standard and it is also backwards compatible. There was also another encoding aimed to extend ASCII known as ISO/IEC 8859, however, it was quickly taken over by UTF-8 due to it’s fragmented design. The problem with ISO 8859 was that it had different versions for specific regions, which made it impossible to mix different languages in one document.</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Void Linux is one of the most unique Linux distros that I’ve encountered. What makes Void Linux unique is that it’s a completely independent distro that is not a fork of any mainstream distro. It is a stable rolling release, which ensures that you get up to date packages without worrying about system-breaking updates. Void Linux also uses runit as the init system, which strongly emphasizes the Unix Philosophy. You also get the choice to choose either musl or glibc as your C library. This guide will show you how to manually install Void Linux with LUKS and the KDE Desktop Environment.</p>
 </section>
-<section id="decoding-process" class="level2">
-<h2 class="anchored" data-anchor-id="decoding-process">Decoding Process</h2>
-<p>To begin decoding, we must convert our string to binary and then combine them into 8-bit chunks. This is not done in the code, but it is shown here to demonstrate the concept. Ex: CEA9</p>
-<pre><code>0xCE        0xA9
-1100 1110   1010 1001
-11001110    10101001</code></pre>
-<p>The first byte is very important. It will determine how many bytes there are in the string. This will be necessary to determine the number of continuation bits. Here is a chart which shows the number of bytes in the string as determined by the first bit.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: right;">First Byte</th>
-<th style="text-align: right;">bytes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">0 xxxxxxx</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">110 xxxxx</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">1110 xxxx</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">11110 xxx</td>
-<td style="text-align: right;">4</td>
-</tr>
-</tbody>
-</table>
-<p>Here are the conditions in the code to check for this at the bit level</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_ONE_MIN   </span><span class="bn">0x00</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_ONE_MAX   </span><span class="bn">0x7F</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_TWO_MIN   </span><span class="bn">0xC0</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_TWO_MAX   </span><span class="bn">0xDF</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_THREE_MIN </span><span class="bn">0xE0</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_THREE_MAX </span><span class="bn">0xEF</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_FOUR_MIN  </span><span class="bn">0xF0</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_FOUR_MAX  </span><span class="bn">0xF7</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> returnValue<span class="op">;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>      <span class="op">(</span>UTF8_BYTE_ONE_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_ONE_MAX<span class="op">)</span>        returnValue <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_TWO_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_TWO_MAX<span class="op">)</span>        returnValue <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_THREE_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_THREE_MAX<span class="op">)</span>    returnValue <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_FOUR_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_FOUR_MAX<span class="op">)</span>      returnValue <span class="op">=</span> <span class="dv">4</span><span class="op">;</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>                                                                      returnValue <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> returnValue<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In this case, the first byte is prefixed with 110</p>
-<pre><code>1100 - 1110    10 - 101001</code></pre>
-<p>Notice that the last byte is prefixed with 10. This is a continuation byte. Every continuation byte is prefixed with 10. In the program, we use the following conditon to check if the continuation bits are valid. But first, we must eliminate the framing bits from the first byte, which in this case are 110x - xxxx. The following conditions is used to do this.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_ONE_MIN   </span><span class="bn">0x00</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_ONE_MAX   </span><span class="bn">0x7F</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_TWO_MIN   </span><span class="bn">0xC0</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_TWO_MAX   </span><span class="bn">0xDF</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_THREE_MIN </span><span class="bn">0xE0</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_THREE_MAX </span><span class="bn">0xEF</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_FOUR_MIN  </span><span class="bn">0xF0</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_BYTE_FOUR_MAX  </span><span class="bn">0xF7</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> returnValue<span class="op">;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>      <span class="op">(</span>UTF8_BYTE_ONE_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_ONE_MAX<span class="op">)</span>        returnValue <span class="op">=</span> value<span class="op">;</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_TWO_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_TWO_MAX<span class="op">)</span>        returnValue <span class="op">=</span> value <span class="op">&amp;</span> UTF8_BYTE_TWO_MASK<span class="op">;</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_THREE_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_THREE_MAX<span class="op">)</span>    returnValue <span class="op">=</span> value <span class="op">&amp;</span> UTF8_BYTE_THREE_MASK<span class="op">;</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>UTF8_BYTE_FOUR_MIN <span class="op">&lt;=</span> value <span class="op">&amp;&amp;</span> value <span class="op">&lt;=</span> UTF8_BYTE_FOUR_MAX<span class="op">)</span>      returnValue <span class="op">=</span> value <span class="op">&amp;</span> UTF8_BYTE_FOUR_MASK<span class="op">;</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>                                                                      returnValue <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> returnValue<span class="op">;</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>sum <span class="op">+=</span> bytes<span class="op">[</span><span class="dv">0</span><span class="op">];</span>    <span class="co">// this is done outside of the function</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                    <span class="co">// once the framing bits are eliminated.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>and to check if the continuation bytes are valid</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// apply a bitwise AND to only keep the 10 in 10xx xxxx</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">// and then return 0 or 1</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_DATA_BIT_MASK         </span><span class="bn">0xC0</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_CONTINUATION_BIT_MASK </span><span class="bn">0x80</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> <span class="op">((</span>value <span class="op">&amp;</span> UTF8_DATA_BIT_MASK<span class="op">)</span> <span class="op">==</span> UTF8_CONTINUATION_BIT_MASK<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Finally, we removing the framing bits from the continuation bytes and sum all of the bytes, which will equal our Unicode character in hexadecimal.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_FRAMING_BIT_MASK </span><span class="bn">0x3F</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define UTF8_SHIFT_LENGTH     </span><span class="bn">0x06</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">// removing framing bits</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>bytes<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> bytes<span class="op">[</span>i<span class="op">]</span> <span class="op">&amp;</span> UTF8_FRAMING_BIT_MASK<span class="op">;</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">// add to sum</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>sum <span class="op">=</span> sum <span class="op">&lt;&lt;</span> UTF8_SHIFT_LENGTH<span class="op">;</span> <span class="co">// apply a left-shift operation to easily add the bits to the sum</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>sum <span class="op">+=</span> bytes<span class="op">[</span>i<span class="op">];</span>                <span class="co">// add the bits to the sum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now we get our final value</p>
-<pre><code>1110 101001
-U+03A9</code></pre>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>You must have a computer that supports UEFI. Any computer from 2012-present should be fine. This guide is primarily designed for UEFI computers, but I will update this guide with Legacy BIOS commands whenever I have time.</p>
+</section>
+<section id="preparing-the-live-usb" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-the-live-usb">Preparing the live USB</h2>
+<p>As with any Linux distro, we need to flash an ISO image to a USB drive. You can download the Void Linux ISO from <a href="https://repo-default.voidlinux.org/live/current/">https://repo-default.voidlinux.org/live/current/</a>. Make sure you download the correct ISO for your CPU architecture. Most computers are x86_64 so you’ll most likely have to download <code>void-live-x86_64-20xxxxxx-base.iso</code>. You can use the musl ISO if you want the musl C library, but for this guide, I will be using the standard glibc ISO. To flash the ISO on Windows, you can use <a href="https://github.com/pbatard/rufus/releases/tag/v4.9">Rufus</a> or <a href="https://github.com/balena-io/etcher/releases/tag/v2.1.4">Etcher</a>. On macOS and Linux, you can use either <a href="https://github.com/balena-io/etcher/releases/tag/v2.1.4">Etcher</a>, or the classic <code>dd</code> command as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/iso</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dd if=void-live-x86_64-20xxxxxx-base.iso of=/dev/<span class="op">&lt;</span>your-disk<span class="op">&gt;</span> status=progress</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>All data will be erased from the USB upon flashing the ISO. Make sure you backup any important data before proceeding. I am not responsible for any potential data loss.</p>
+</section>
+<section id="booting-the-installation-usb" class="level2">
+<h2 class="anchored" data-anchor-id="booting-the-installation-usb">Booting the installation USB</h2>
+<p>Restart your PC and press the boot menu key to get into the boot menu. This can vary depending on your BIOS. Consult your motherboard manual or check with your PC manufacturer for the boot menu key. Once you select your USB, you will be prompted to login. For the username, type <code>root</code>. For the password, type <code>voidlinux</code>. You will now be greeted with a terminal prompt.</p>
+</section>
+<section id="installation" class="level2">
+<h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<section id="connecting-to-the-internet" class="level3">
+<h3 class="anchored" data-anchor-id="connecting-to-the-internet">Connecting to the Internet</h3>
+<p>The first thing to do is to check if your have internet access. If you’re using an Ethernet cable, you should be good to go. If you are using Wi-Fi, you will have to connect manually. To do this, you must first get the name of your Wi-Fi interface. To do this, type <code>ls /sys/class/net</code> and you should get an output similar to this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lo</span>  wlp1s0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Look for the <code>wlp</code> interface. This interface will be used to connect to the Internet. We will now use <em>wpa_supplicant</em> to connect to Wi-Fi. Type the following commands:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wpa_passphrase</span> <span class="st">"&lt;your-wifi-name&gt;"</span> <span class="st">"&lt;password&gt;"</span> <span class="op">&gt;&gt;</span> /etc/wpa_supplicant/wpa_supplicant.conf</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">wpa_supplicant</span> <span class="at">-B</span> <span class="at">-i</span> <span class="op">&lt;</span>your-interface<span class="op">&gt;</span> -c /etc/wpa_supplicant/wpa_supplicant.conf</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /etc/sv/wpa_supplicant /var/service</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>To test if it works, type <code>ping -c 3 voidlinux.org</code> and if your output is similar as shown below, you’re good to go.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PING</span> voidlinux.org <span class="er">(</span><span class="ex">2606:50c0:8000::153</span><span class="kw">)</span> <span class="ex">56</span> data bytes</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">64</span> bytes from 2606:50c0:8000::153: icmp_seq=1 ttl=56 time=19.5 ms</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">64</span> bytes from 2606:50c0:8000::153: icmp_seq=2 ttl=56 time=34.5 ms</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">64</span> bytes from 2606:50c0:8000::153: icmp_seq=3 ttl=56 time=34.0 ms</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span> voidlinux.org ping statistics <span class="at">---</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">3</span> packets transmitted, 3 received, 0% packet loss, time 2003ms</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">rtt</span> min/avg/max/mdev = 19.466/29.298/34.468/6.955 ms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="partitioning-the-disk" class="level3">
+<h3 class="anchored" data-anchor-id="partitioning-the-disk">Partitioning the disk</h3>
+<p>Now it is time to partition the disk. For this guide, I will be assuming that the entire disk will be used. The first think to do is check your disk layout. type <code>lsblk</code> and you should see a list of disks along with their capacity. If you have a SATA disk, you’ll most likely see <code>sda</code>, <code>sdb</code>, <code>sdc</code>, etc. If you have an NVMe disk, you’ll most likely see <code>nvme0n1</code>, <code>nvme0n2</code>, <code>nvme1n1</code>, <code>nvme1n2</code>, etc.</p>
 
 
 </section>
