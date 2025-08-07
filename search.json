@@ -39,7 +39,7 @@
     "href": "posts/index.html",
     "title": "Posts",
     "section": "",
-    "text": "Date\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nAug 7, 2025\n\n\nSetting up Kubernetes with custom image support on Alpine Linux\n\n\nSantiago Torres\n\n\n\n\n\n\nJul 27, 2025\n\n\nHow To Install Void Linux with LUKS + KDE + PipeWire\n\n\nSantiago Torres\n\n\n\n\n\n\nApr 7, 2025\n\n\nHow I Got Into Linux\n\n\nSantiago Torres\n\n\n\n\n\n\nApr 7, 2025\n\n\nHow To Setup QEMU/Virt Manager On Linux\n\n\nSantiago Torres\n\n\n\n\n\n\nApr 5, 2025\n\n\nDecoding a UTF-8 Hex String Into It’s Unicode Code Print\n\n\nSantiago Torres\n\n\n\n\n\n\nNo matching items"
+    "text": "Date\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nAug 7, 2025\n\n\nSetting up Kubernetes with custom image support on Alpine Linux\n\n\nSantiago Torres\n\n\n\n\n\n\nJul 27, 2025\n\n\nHow To Install Void Linux with LUKS + KDE + PipeWire (unfinished)\n\n\nSantiago Torres\n\n\n\n\n\n\nApr 7, 2025\n\n\nHow I Got Into Linux\n\n\nSantiago Torres\n\n\n\n\n\n\nApr 7, 2025\n\n\nHow To Setup QEMU/Virt Manager On Linux\n\n\nSantiago Torres\n\n\n\n\n\n\nApr 5, 2025\n\n\nDecoding a UTF-8 Hex String Into It’s Unicode Code Print\n\n\nSantiago Torres\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/how-i-got-into-linux/index.html",
@@ -184,42 +184,42 @@
   {
     "objectID": "posts/how-to-install-void-linux-with-encryption/index.html",
     "href": "posts/how-to-install-void-linux-with-encryption/index.html",
-    "title": "How To Install Void Linux with LUKS + KDE + PipeWire",
+    "title": "How To Install Void Linux with LUKS + KDE + PipeWire (unfinished)",
     "section": "",
     "text": "Void Linux is one of the most unique Linux distros that I’ve encountered. What makes Void Linux unique is that it’s a completely independent distro that is not a fork of any mainstream distro. It is a stable rolling release, which ensures that you get up to date packages without worrying about system-breaking updates. Void Linux also uses runit as the init system, which strongly emphasizes the Unix Philosophy. You also get the choice to choose either musl or glibc as your C library. This guide will show you how to manually install Void Linux with LUKS and the KDE Desktop Environment."
   },
   {
     "objectID": "posts/how-to-install-void-linux-with-encryption/index.html#introduction",
     "href": "posts/how-to-install-void-linux-with-encryption/index.html#introduction",
-    "title": "How To Install Void Linux with LUKS + KDE + PipeWire",
+    "title": "How To Install Void Linux with LUKS + KDE + PipeWire (unfinished)",
     "section": "",
     "text": "Void Linux is one of the most unique Linux distros that I’ve encountered. What makes Void Linux unique is that it’s a completely independent distro that is not a fork of any mainstream distro. It is a stable rolling release, which ensures that you get up to date packages without worrying about system-breaking updates. Void Linux also uses runit as the init system, which strongly emphasizes the Unix Philosophy. You also get the choice to choose either musl or glibc as your C library. This guide will show you how to manually install Void Linux with LUKS and the KDE Desktop Environment."
   },
   {
     "objectID": "posts/how-to-install-void-linux-with-encryption/index.html#prerequisites",
     "href": "posts/how-to-install-void-linux-with-encryption/index.html#prerequisites",
-    "title": "How To Install Void Linux with LUKS + KDE + PipeWire",
+    "title": "How To Install Void Linux with LUKS + KDE + PipeWire (unfinished)",
     "section": "Prerequisites",
     "text": "Prerequisites\nYou must have a computer that supports UEFI. Any computer from 2012-present should be fine. This guide is primarily designed for UEFI computers, but I will update this guide with Legacy BIOS commands whenever I have time."
   },
   {
     "objectID": "posts/how-to-install-void-linux-with-encryption/index.html#preparing-the-live-usb",
     "href": "posts/how-to-install-void-linux-with-encryption/index.html#preparing-the-live-usb",
-    "title": "How To Install Void Linux with LUKS + KDE + PipeWire",
+    "title": "How To Install Void Linux with LUKS + KDE + PipeWire (unfinished)",
     "section": "Preparing the live USB",
     "text": "Preparing the live USB\nAs with any Linux distro, we need to flash an ISO image to a USB drive. You can download the Void Linux ISO from https://repo-default.voidlinux.org/live/current/. Make sure you download the correct ISO for your CPU architecture. Most computers are x86_64 so you’ll most likely have to download void-live-x86_64-20xxxxxx-base.iso. You can use the musl ISO if you want the musl C library, but for this guide, I will be using the standard glibc ISO. To flash the ISO on Windows, you can use Rufus or Etcher. On macOS and Linux, you can use either Etcher, or the classic dd command as follows:\ncd /path/to/iso\nsudo dd if=void-live-x86_64-20xxxxxx-base.iso of=/dev/&lt;your-disk&gt; status=progress\nAll data will be erased from the USB upon flashing the ISO. Make sure you backup any important data before proceeding. I am not responsible for any potential data loss."
   },
   {
     "objectID": "posts/how-to-install-void-linux-with-encryption/index.html#booting-the-installation-usb",
     "href": "posts/how-to-install-void-linux-with-encryption/index.html#booting-the-installation-usb",
-    "title": "How To Install Void Linux with LUKS + KDE + PipeWire",
+    "title": "How To Install Void Linux with LUKS + KDE + PipeWire (unfinished)",
     "section": "Booting the installation USB",
     "text": "Booting the installation USB\nRestart your PC and press the boot menu key to get into the boot menu. This can vary depending on your BIOS. Consult your motherboard manual or check with your PC manufacturer for the boot menu key. Once you select your USB, you will be prompted to login. For the username, type root. For the password, type voidlinux. You will now be greeted with a terminal prompt."
   },
   {
     "objectID": "posts/how-to-install-void-linux-with-encryption/index.html#installation",
     "href": "posts/how-to-install-void-linux-with-encryption/index.html#installation",
-    "title": "How To Install Void Linux with LUKS + KDE + PipeWire",
+    "title": "How To Install Void Linux with LUKS + KDE + PipeWire (unfinished)",
     "section": "Installation",
     "text": "Installation\n\nConnecting to the Internet\nThe first thing to do is to check if your have internet access. If you’re using an Ethernet cable, you should be good to go. If you are using Wi-Fi, you will have to connect manually. To do this, you must first get the name of your Wi-Fi interface. To do this, type ls /sys/class/net and you should get an output similar to this:\nlo  wlp1s0\nLook for the wlp interface. This interface will be used to connect to the Internet. We will now use wpa_supplicant to connect to Wi-Fi. Type the following commands:\nwpa_passphrase \"&lt;your-wifi-name&gt;\" \"&lt;password&gt;\" &gt;&gt; /etc/wpa_supplicant/wpa_supplicant.conf\nwpa_supplicant -B -i &lt;your-interface&gt; -c /etc/wpa_supplicant/wpa_supplicant.conf\nln -s /etc/sv/wpa_supplicant /var/service\nTo test if it works, type ping -c 3 voidlinux.org and if your output is similar as shown below, you’re good to go.\nPING voidlinux.org (2606:50c0:8000::153) 56 data bytes\n64 bytes from 2606:50c0:8000::153: icmp_seq=1 ttl=56 time=19.5 ms\n64 bytes from 2606:50c0:8000::153: icmp_seq=2 ttl=56 time=34.5 ms\n64 bytes from 2606:50c0:8000::153: icmp_seq=3 ttl=56 time=34.0 ms\n\n--- voidlinux.org ping statistics ---\n3 packets transmitted, 3 received, 0% packet loss, time 2003ms\nrtt min/avg/max/mdev = 19.466/29.298/34.468/6.955 ms\n\n\nPartitioning the disk\nNow it is time to partition the disk. For this guide, I will be assuming that the entire disk will be used. The first think to do is check your disk layout. type lsblk and you should see a list of disks along with their capacity. If you have a SATA disk, you’ll most likely see sda, sdb, sdc, etc. If you have an NVMe disk, you’ll most likely see nvme0n1, nvme0n2, nvme1n1, nvme1n2, etc."
   }
