@@ -1,0 +1,270 @@
+---
+title: "Setting up Kubernetes with custom image support on Alpine Linux"
+author: "Santiago Torres"
+date: "2025-08-07"
+toc: true
+title-block-banner: true
+---
+
+## Introduction
+This is a brief post on How I setup Kubernetes on Alpine Linux
+and deploy my own images.
+
+## Prerequisites
+You must have at least 2 computers or virtual machines,
+one as the control plane and the other as the worker
+node.
+
+### Setting up the edge repos (control plane and worker)
+To install Docker and Kubernetes on Alpine, you must setup
+the Alpine Linux edge repo. To do this, add the following lines
+to `/etc/apk/repositories`
+```text
+http://dl-cdn.alpinelinux.org/alpine/edge/community
+http://dl-cdn.alpinelinux.org/alpine/edge/testing
+```
+Then run `doas apk update && doas apk upgrade`
+
+### Setting up necessary kernel modules (control plane and worker)
+In order to have the kubernetes network functioning,
+you must add the `br_netfilter` kernel module
+and add some rules to sysctl. To do this, run
+the following commands as root:
+```bash
+echo "br_netfilter" > /etc/modules-load.d/k8s.conf
+echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+echo "net.bridge.bridge-nf-call-iptables=1" >> /etc/sysctl.conf
+modprobe br_netfilter
+sysctl net.ipv4.ip_forward=1
+sysctl net.bridge.bridge-nf-call-iptables=1
+```
+
+## Installing Docker
+
+### Installing Packages (control plane and worker)
+To get docker running on Alpine, you must install
+the following packages and enable the following
+services as root:
+```bash
+apk add docker docker-cli-buildx docker-cli-compose
+rc-update add docker
+rc-update add containerd
+rc-service docker start
+rc-service containerd start
+```
+If you want to use Docker with an unprivileged
+user, you need to add your user to the Docker
+group. To do this, run as root:
+```bash
+addgroup $USER docker
+```
+You will have to restart your computer after
+this change.
+
+### Setting up local Docker Registry (control plane)
+If you want to use your own Docker images,
+you will have to host your own Docker registry.
+Before we do that, we need to create an SSL
+certificate for secure connectivity.
+```bash
+mkdir -p registry/certs
+openssl genpkey -algorithm ed25519 -out registry.key
+openssl req -new -x509 -key registry.key -out registry.crt \
+    -days 365 \
+    -subj "/C=US/ST=California/L=Los Angeles/O=Not Money Laundering LLC/OU=Briskycola/CN=Briskycola" \
+    -addext "subjectAltName = IP:<your-server-ip>"
+```
+In order for Docker to trust this certificate,
+you will have to manually add it to your
+ca-certificates folder. To do this, run
+the following commands as root:
+```bash
+doas cp certs/registry.* /usr/local/share/ca-certificates/
+doas update-ca-certificates
+```
+You will need to restart your computer after
+these changes. Additionally, you will have
+to copy the registry certificates on
+your worker nodes and update the
+ca-certificates
+
+Now to create the docker registry, we will use
+the a Docker Compose yaml to download
+the registry image and host it with the appropriate
+settings. Here is a command that will create the
+conf file
+```bash
+cd ../
+SECRET=$(openssl rand -hex 32)
+tee <<EOF compose.yml
+services:
+    registry:
+        image: registry:3
+        container_name: registry
+        restart: always
+        ports:
+            - "5000:5000"
+        volumes:
+            - ./certs:/certs
+            - ./data:/var/lib/registry
+        environment:
+            REGISTRY_HTTP_SECRET: $SECRET
+            REGISTRY_HTTP_TLS_CERTIFICATE: ./certs/registry.crt
+            REGISTRY_HTTP_TLS_KEY: ./certs/registry.key
+EOF
+```
+
+To run the registry, run
+`docker-compose up -d`
+
+To add your custom docker image to the registry,
+run the following commands:
+```bash
+docker tag <your-image-name> <your-ip-address>:5000/<your-image-name>
+docker push <your-ip-address>:5000/<your-image-name>
+```
+
+## Installing Kubernetes
+
+### Installing packages (control plane and worker)
+Run the following commands as root to
+install the necessary packages for Kubernetes:
+```bash
+apk add cni-plugin-flannel
+apk add cni-plugins
+apk add flannel
+apk add flannel-contrib-cni
+apk add kubelet
+apk add kubeadm
+apk add kubectl
+apk add containerd
+apk add uuidgen
+apk add nfs-utils
+```
+In order for Kubernetes to work, you will need
+to disable swap. It is especially good to disable
+swap if you're on an SSD to avoid excees writes
+and preserve your SSD's lifespan. Run the
+following commands as root to disable swap:
+```bash
+cp -av /etc/fstab /etc/fstab.bak
+sed -i '/swap/s/^/#/' /etc/fstab
+swapoff -a
+```
+
+### Enable services (control plane and worker)
+To enable kubernetes on boot, run the following
+commands:
+```bash
+doas rc-update add kubelet
+doas rc-service kubelet start
+```
+
+### Pin Kubernetes Package (control plane and worker)
+To avoid potential breakage with the kubernetes
+cluster, it is strongly advised to pin the
+versions of each package. As of writing this
+guide, the latest version is 1.33. To pin
+the packages, run:
+```bash
+doas apk add 'kubelet=~1.33'
+doas apk add 'kubeadm=~1.33'
+doas apk add 'kubectl=~1.33'
+```
+To update to a newer version, say 1.34, you will
+need to run these commands again, but with the
+newer version.
+
+### Create the Kubernetes Cluster (control plane)
+To create a new kubernetes cluster run
+the following command:
+```bash
+doas kubeadm init --pod-network-cidr=10.244.0.0/16
+```
+This will take quite some time depending
+on your computer and network speeds.
+Once that is done, you can start the cluster
+by running the following commands:
+```bash
+mkdir -p $HOME/.kube
+doas cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+doas chown $(id -u):$(id -g) $HOME/.kube/config
+```
+Next you will need to deploy a pod network. I
+recommend flannel since it's the easiest to
+deploy. You can deploy flannel by running
+the following command:
+```bash
+kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+```
+In order for your worker nodes to join
+your cluster, you must run the following
+command to output a unique join command:
+```bash
+doas kubeadm token create --print-join-command
+```
+You will have to run the output command
+on the worker node to allow it to join
+the cluster.
+
+### Create a Deployment and Service (control plane)
+To create a deployment and a service
+you can either run `kubectl` commands
+or create a yaml file that has the
+properties that you want. I'll show
+you both ways.
+
+#### CLI
+Run the following commands to create a
+Deployment and Service
+```bash
+kubectl create deployment <name> --image=<your-image> --replicas=3                        # Docker Hub image
+kubectl create deployment <name> --image=<your-ip-address>:5000/<your-image> --replicas=3 # Self hosted image
+kubectl create service nodeport <name> --tcp=<external-port>:<container-port> --node-port=<30000-32767>
+```
+
+#### Yaml File
+Create a `.yaml` or `.yml` file and use
+the following template to create your
+yaml configuration:
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: <name>
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: <name>
+    template:
+        metadata:
+            labels:
+                app: <name>
+        spec:
+            containers:
+                - name: <name>
+                  image: <image>
+                  ports:
+                      - containerPort: <container-port>
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: <name>
+spec:
+    selector:
+        app: <name>
+    ports:
+        - name: <name>
+          port: <external-port>
+          targetPort: <container-port>
+          nodePort: <30000-32767>
+    type: NodePort
+```
+
+To create a Deployment and Service using
+your config, run the following command:
+```bash
+kubectl apply -f <your-file>.yml
+```
