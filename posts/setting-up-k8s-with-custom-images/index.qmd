@@ -141,6 +141,8 @@ apk add containerd
 apk add uuidgen
 apk add nfs-utils
 ```
+
+### Disable Swap
 In order for Kubernetes to work, you will need
 to disable swap. It is especially good to disable
 swap if you're on an SSD to avoid excees writes
@@ -150,6 +152,16 @@ following commands as root to disable swap:
 cp -av /etc/fstab /etc/fstab.bak
 sed -i '/swap/s/^/#/' /etc/fstab
 swapoff -a
+```
+
+### Set Mount Propagation To Be Recursively Shared
+Some services will require mount propagation in
+order to allow containers and pods to mount
+sub-volumes and have them be accessible on
+the host. To allow mount propagation, run
+the following command:
+```bash
+doas mount --make-rshared /
 ```
 
 ### Enable services (control plane and worker)
