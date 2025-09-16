@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-befe23ebd2f54d8af2c8a89d1a1611f1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0b0679be5c618bb1220d9b743f339889.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-a2750df8cfb6e9fee2e5fd8667001e0e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,6 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Santiago Torres</span>
     </a>
@@ -229,12 +232,12 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing</code></pre>
 <section id="setting-up-necessary-kernel-modules-control-plane-and-worker" class="level3">
 <h3 class="anchored" data-anchor-id="setting-up-necessary-kernel-modules-control-plane-and-worker">Setting up necessary kernel modules (control plane and worker)</h3>
 <p>In order to have the kubernetes network functioning, you must add the <code>br_netfilter</code> kernel module and add some rules to sysctl. To do this, run the following commands as root:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"br_netfilter"</span> <span class="op">&gt;</span> /etc/modules-load.d/k8s.conf</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"br_netfilter"</span> <span class="op">&gt;</span> /etc/modules-load.d/k8s.conf</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"net.ipv4.ip_forward=1"</span> <span class="op">&gt;&gt;</span> /etc/sysctl.conf</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"net.bridge.bridge-nf-call-iptables=1"</span> <span class="op">&gt;&gt;</span> /etc/sysctl.conf</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">modprobe</span> br_netfilter</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> net.ipv4.ip_forward=1</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> net.bridge.bridge-nf-call-iptables=1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">sysctl</span> net.bridge.bridge-nf-call-iptables=1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="installing-docker" class="level2">
@@ -242,30 +245,30 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing</code></pre>
 <section id="installing-packages-control-plane-and-worker" class="level3">
 <h3 class="anchored" data-anchor-id="installing-packages-control-plane-and-worker">Installing Packages (control plane and worker)</h3>
 <p>To get docker running on Alpine, you must install the following packages and enable the following services as root:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add docker docker-cli-buildx docker-cli-compose</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add docker docker-cli-buildx docker-cli-compose</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">rc-update</span> add docker</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">rc-update</span> add containerd</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">rc-service</span> docker start</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">rc-service</span> containerd start</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">rc-service</span> containerd start</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>If you want to use Docker with an unprivileged user, you need to add your user to the Docker group. To do this, run as root:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">addgroup</span> <span class="va">$USER</span> docker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">addgroup</span> <span class="va">$USER</span> docker</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You will have to restart your computer after this change.</p>
 </section>
 <section id="setting-up-local-docker-registry-control-plane" class="level3">
 <h3 class="anchored" data-anchor-id="setting-up-local-docker-registry-control-plane">Setting up local Docker Registry (control plane)</h3>
 <p>If you want to use your own Docker images, you will have to host your own Docker registry. Before we do that, we need to create an SSL certificate for secure connectivity.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> registry/certs</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> registry/certs</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> genpkey <span class="at">-algorithm</span> ed25519 <span class="at">-out</span> registry.key</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">openssl</span> req <span class="at">-new</span> <span class="at">-x509</span> <span class="at">-key</span> registry.key <span class="at">-out</span> registry.crt <span class="dt">\</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-days</span> 365 <span class="dt">\</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-subj</span> <span class="st">"/C=US/ST=California/L=Los Angeles/O=Not Money Laundering LLC/OU=Briskycola/CN=Briskycola"</span> <span class="dt">\</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-addext</span> <span class="st">"subjectAltName = IP:&lt;your-server-ip&gt;"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">-addext</span> <span class="st">"subjectAltName = IP:&lt;your-server-ip&gt;"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In order for Docker to trust this certificate, you will have to manually add it to your ca-certificates folder. To do this, run the following commands as root:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> cp certs/registry.<span class="pp">*</span> /usr/local/share/ca-certificates/</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> update-ca-certificates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> cp certs/registry.<span class="pp">*</span> /usr/local/share/ca-certificates/</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> update-ca-certificates</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You will need to restart your computer after these changes. Additionally, you will have to copy the registry certificates on your worker nodes and update the ca-certificates</p>
 <p>Now to create the docker registry, we will use the a Docker Compose yaml to download the registry image and host it with the appropriate settings. Here is a command that will create the conf file</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ../</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">SECRET</span><span class="op">=</span><span class="va">$(</span><span class="ex">openssl</span> rand <span class="at">-hex</span> 32<span class="va">)</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tee</span> <span class="op">&lt;&lt;EOF</span> compose.yml</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">services:</span></span>
@@ -282,11 +285,11 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing</code></pre>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="st">            REGISTRY_HTTP_SECRET: </span><span class="va">$SECRET</span></span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="st">            REGISTRY_HTTP_TLS_CERTIFICATE: ./certs/registry.crt</span></span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="st">            REGISTRY_HTTP_TLS_KEY: ./certs/registry.key</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="op">EOF</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To run the registry, run <code>docker-compose up -d</code></p>
 <p>To add your custom docker image to the registry, run the following commands:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> tag <span class="op">&lt;</span>your-image-name<span class="op">&gt;</span> <span class="op">&lt;</span>your-ip-address<span class="op">&gt;</span>:5000/<span class="op">&lt;</span>your-image-name<span class="op">&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> push <span class="op">&lt;</span>your-ip-address<span class="op">&gt;</span>:5000/<span class="op">&lt;</span>your-image-name<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> tag <span class="op">&lt;</span>your-image-name<span class="op">&gt;</span> <span class="op">&lt;</span>your-ip-address<span class="op">&gt;</span>:5000/<span class="op">&lt;</span>your-image-name<span class="op">&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> push <span class="op">&lt;</span>your-ip-address<span class="op">&gt;</span>:5000/<span class="op">&lt;</span>your-image-name<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
 <section id="installing-kubernetes" class="level2">
@@ -294,7 +297,7 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing</code></pre>
 <section id="installing-packages-control-plane-and-worker-1" class="level3">
 <h3 class="anchored" data-anchor-id="installing-packages-control-plane-and-worker-1">Installing packages (control plane and worker)</h3>
 <p>Run the following commands as root to install the necessary packages for Kubernetes:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add cni-plugin-flannel</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add cni-plugin-flannel</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add cni-plugins</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add flannel</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add flannel-contrib-cni</span>
@@ -303,46 +306,46 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing</code></pre>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add kubectl</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add containerd</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add uuidgen</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add nfs-utils</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="ex">apk</span> add nfs-utils</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="disable-swap" class="level3">
 <h3 class="anchored" data-anchor-id="disable-swap">Disable Swap</h3>
 <p>In order for Kubernetes to work, you will need to disable swap. It is especially good to disable swap if you’re on an SSD to avoid excees writes and preserve your SSD’s lifespan. Run the following commands as root to disable swap:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-av</span> /etc/fstab /etc/fstab.bak</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-av</span> /etc/fstab /etc/fstab.bak</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sed</span> <span class="at">-i</span> <span class="st">'/swap/s/^/#/'</span> /etc/fstab</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">swapoff</span> <span class="at">-a</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">swapoff</span> <span class="at">-a</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="set-mount-propagation-to-be-recursively-shared" class="level3">
 <h3 class="anchored" data-anchor-id="set-mount-propagation-to-be-recursively-shared">Set Mount Propagation To Be Recursively Shared</h3>
 <p>Some services will require mount propagation in order to allow containers and pods to mount sub-volumes and have them be accessible on the host. To allow mount propagation, run the following command:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> mount <span class="at">--make-rshared</span> /</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> mount <span class="at">--make-rshared</span> /</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="enable-services-control-plane-and-worker" class="level3">
 <h3 class="anchored" data-anchor-id="enable-services-control-plane-and-worker">Enable services (control plane and worker)</h3>
 <p>To enable kubernetes on boot, run the following commands:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> rc-update add kubelet</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> rc-service kubelet start</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> rc-update add kubelet</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> rc-service kubelet start</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="pin-kubernetes-package-control-plane-and-worker" class="level3">
 <h3 class="anchored" data-anchor-id="pin-kubernetes-package-control-plane-and-worker">Pin Kubernetes Package (control plane and worker)</h3>
 <p>To avoid potential breakage with the kubernetes cluster, it is strongly advised to pin the versions of each package. As of writing this guide, the latest version is 1.33. To pin the packages, run:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> apk add <span class="st">'kubelet=~1.33'</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> apk add <span class="st">'kubelet=~1.33'</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> apk add <span class="st">'kubeadm=~1.33'</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> apk add <span class="st">'kubectl=~1.33'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> apk add <span class="st">'kubectl=~1.33'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To update to a newer version, say 1.34, you will need to run these commands again, but with the newer version.</p>
 </section>
 <section id="create-the-kubernetes-cluster-control-plane" class="level3">
 <h3 class="anchored" data-anchor-id="create-the-kubernetes-cluster-control-plane">Create the Kubernetes Cluster (control plane)</h3>
 <p>To create a new kubernetes cluster run the following command:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> kubeadm init <span class="at">--pod-network-cidr</span><span class="op">=</span>10.244.0.0/16</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> kubeadm init <span class="at">--pod-network-cidr</span><span class="op">=</span>10.244.0.0/16</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>This will take quite some time depending on your computer and network speeds. Once that is done, you can start the cluster by running the following commands:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="va">$HOME</span>/.kube</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> <span class="va">$HOME</span>/.kube</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> cp <span class="at">-i</span> /etc/kubernetes/admin.conf <span class="va">$HOME</span>/.kube/config</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> chown <span class="va">$(</span><span class="fu">id</span> <span class="at">-u</span><span class="va">)</span>:<span class="va">$(</span><span class="fu">id</span> <span class="at">-g</span><span class="va">)</span> <span class="va">$HOME</span>/.kube/config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> chown <span class="va">$(</span><span class="fu">id</span> <span class="at">-u</span><span class="va">)</span>:<span class="va">$(</span><span class="fu">id</span> <span class="at">-g</span><span class="va">)</span> <span class="va">$HOME</span>/.kube/config</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Next you will need to deploy a pod network. I recommend flannel since it’s the easiest to deploy. You can deploy flannel by running the following command:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In order for your worker nodes to join your cluster, you must run the following command to output a unique join command:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> kubeadm token create <span class="at">--print-join-command</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">doas</span> kubeadm token create <span class="at">--print-join-command</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>You will have to run the output command on the worker node to allow it to join the cluster.</p>
 </section>
 <section id="create-a-deployment-and-service-control-plane" class="level3">
@@ -351,14 +354,14 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing</code></pre>
 <section id="cli" class="level4">
 <h4 class="anchored" data-anchor-id="cli">CLI</h4>
 <p>Run the following commands to create a Deployment and Service</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create deployment <span class="op">&lt;</span>name<span class="op">&gt;</span> --image=<span class="op">&lt;</span>your-image<span class="op">&gt;</span> --replicas=3                        <span class="co"># Docker Hub image</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create deployment <span class="op">&lt;</span>name<span class="op">&gt;</span> --image=<span class="op">&lt;</span>your-image<span class="op">&gt;</span> --replicas=3                        <span class="co"># Docker Hub image</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create deployment <span class="op">&lt;</span>name<span class="op">&gt;</span> --image=<span class="op">&lt;</span>your-ip-address<span class="op">&gt;</span>:5000/<span class="op">&lt;</span>your-image<span class="op">&gt;</span> --replicas=3 <span class="co"># Self hosted image</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create service nodeport <span class="op">&lt;</span>name<span class="op">&gt;</span> --tcp=<span class="op">&lt;</span>external-port<span class="op">&gt;</span>:<span class="op">&lt;</span>container-port<span class="op">&gt;</span> --node-port=<span class="op">&lt;</span>30000-32767<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> create service nodeport <span class="op">&lt;</span>name<span class="op">&gt;</span> --tcp=<span class="op">&lt;</span>external-port<span class="op">&gt;</span>:<span class="op">&lt;</span>container-port<span class="op">&gt;</span> --node-port=<span class="op">&lt;</span>30000-32767<span class="op">&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="yaml-file" class="level4">
 <h4 class="anchored" data-anchor-id="yaml-file">Yaml File</h4>
 <p>Create a <code>.yaml</code> or <code>.yml</code> file and use the following template to create your yaml configuration:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> apps/v1</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">apiVersion</span><span class="kw">:</span><span class="at"> apps/v1</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kind</span><span class="kw">:</span><span class="at"> Deployment</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> &lt;name&gt;</span></span>
@@ -390,9 +393,9 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing</code></pre>
 <span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">port</span><span class="kw">:</span><span class="at"> &lt;external-port&gt;</span></span>
 <span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">targetPort</span><span class="kw">:</span><span class="at"> &lt;container-port&gt;</span></span>
 <span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">nodePort</span><span class="kw">:</span><span class="at"> &lt;30000-32767&gt;</span></span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> NodePort</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> NodePort</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To create a Deployment and Service using your config, run the following command:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> <span class="op">&lt;</span>your-file<span class="op">&gt;</span>.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">kubectl</span> apply <span class="at">-f</span> <span class="op">&lt;</span>your-file<span class="op">&gt;</span>.yml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>
@@ -451,13 +454,14 @@ http://dl-cdn.alpinelinux.org/alpine/edge/testing</code></pre>
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

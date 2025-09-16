@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-befe23ebd2f54d8af2c8a89d1a1611f1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0b0679be5c618bb1220d9b743f339889.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-a2750df8cfb6e9fee2e5fd8667001e0e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,6 +117,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Santiago Torres</span>
     </a>
@@ -211,8 +214,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="preparing-the-live-usb" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-the-live-usb">Preparing the live USB</h2>
 <p>As with any Linux distro, we need to flash an ISO image to a USB drive. You can download the Void Linux ISO from <a href="https://repo-default.voidlinux.org/live/current/">https://repo-default.voidlinux.org/live/current/</a>. Make sure you download the correct ISO for your CPU architecture. Most computers are x86_64 so you’ll most likely have to download <code>void-live-x86_64-20xxxxxx-base.iso</code>. You can use the musl ISO if you want the musl C library, but for this guide, I will be using the standard glibc ISO. To flash the ISO on Windows, you can use <a href="https://github.com/pbatard/rufus/releases/tag/v4.9">Rufus</a> or <a href="https://github.com/balena-io/etcher/releases/tag/v2.1.4">Etcher</a>. On macOS and Linux, you can use either <a href="https://github.com/balena-io/etcher/releases/tag/v2.1.4">Etcher</a>, or the classic <code>dd</code> command as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/iso</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dd if=void-live-x86_64-20xxxxxx-base.iso of=/dev/<span class="op">&lt;</span>your-disk<span class="op">&gt;</span> status=progress</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/iso</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> dd if=void-live-x86_64-20xxxxxx-base.iso of=/dev/<span class="op">&lt;</span>your-disk<span class="op">&gt;</span> status=progress</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>All data will be erased from the USB upon flashing the ISO. Make sure you backup any important data before proceeding. I am not responsible for any potential data loss.</p>
 </section>
 <section id="booting-the-installation-usb" class="level2">
@@ -224,20 +227,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="connecting-to-the-internet" class="level3">
 <h3 class="anchored" data-anchor-id="connecting-to-the-internet">Connecting to the Internet</h3>
 <p>The first thing to do is to check if your have internet access. If you’re using an Ethernet cable, you should be good to go. If you are using Wi-Fi, you will have to connect manually. To do this, you must first get the name of your Wi-Fi interface. To do this, type <code>ls /sys/class/net</code> and you should get an output similar to this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lo</span>  wlp1s0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">lo</span>  wlp1s0</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Look for the <code>wlp</code> interface. This interface will be used to connect to the Internet. We will now use <em>wpa_supplicant</em> to connect to Wi-Fi. Type the following commands:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wpa_passphrase</span> <span class="st">"&lt;your-wifi-name&gt;"</span> <span class="st">"&lt;password&gt;"</span> <span class="op">&gt;&gt;</span> /etc/wpa_supplicant/wpa_supplicant.conf</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">wpa_passphrase</span> <span class="st">"&lt;your-wifi-name&gt;"</span> <span class="st">"&lt;password&gt;"</span> <span class="op">&gt;&gt;</span> /etc/wpa_supplicant/wpa_supplicant.conf</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">wpa_supplicant</span> <span class="at">-B</span> <span class="at">-i</span> <span class="op">&lt;</span>your-interface<span class="op">&gt;</span> -c /etc/wpa_supplicant/wpa_supplicant.conf</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /etc/sv/wpa_supplicant /var/service</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /etc/sv/wpa_supplicant /var/service</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To test if it works, type <code>ping -c 3 voidlinux.org</code> and if your output is similar as shown below, you’re good to go.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PING</span> voidlinux.org <span class="er">(</span><span class="ex">2606:50c0:8000::153</span><span class="kw">)</span> <span class="ex">56</span> data bytes</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PING</span> voidlinux.org <span class="er">(</span><span class="ex">2606:50c0:8000::153</span><span class="kw">)</span> <span class="ex">56</span> data bytes</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">64</span> bytes from 2606:50c0:8000::153: icmp_seq=1 ttl=56 time=19.5 ms</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">64</span> bytes from 2606:50c0:8000::153: icmp_seq=2 ttl=56 time=34.5 ms</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">64</span> bytes from 2606:50c0:8000::153: icmp_seq=3 ttl=56 time=34.0 ms</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span> voidlinux.org ping statistics <span class="at">---</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">3</span> packets transmitted, 3 received, 0% packet loss, time 2003ms</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">rtt</span> min/avg/max/mdev = 19.466/29.298/34.468/6.955 ms</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">rtt</span> min/avg/max/mdev = 19.466/29.298/34.468/6.955 ms</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="partitioning-the-disk" class="level3">
 <h3 class="anchored" data-anchor-id="partitioning-the-disk">Partitioning the disk</h3>
@@ -299,13 +302,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
