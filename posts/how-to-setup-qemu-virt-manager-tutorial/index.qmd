@@ -41,12 +41,12 @@ the following packages using your distribution's package manager.
 
 Arch Linux
 ```bash
-sudo pacman -S qemu-desktop virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs
+sudo pacman -S qemu-desktop virt-manager virt-viewer dnsmasq vde2 openbsd-netcat libguestfs
 ```
 
 Debian/Ubuntu
 ```bash
-sudo apt install qemu-system virt-manager libvirt-daemon dnsmasq vde2 bridge-utils netcat-openbsd libguestfs-tools
+sudo apt install qemu-system virt-manager libvirt-daemon dnsmasq vde2 netcat-openbsd libguestfs-tools
 ```
 
 Fedora
