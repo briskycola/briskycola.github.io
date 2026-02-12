@@ -130,7 +130,7 @@
     "href": "posts/how-to-setup-qemu-virt-manager-tutorial/index.html#installation",
     "title": "How To Setup QEMU/Virt Manager On Linux",
     "section": "Installation",
-    "text": "Installation\nIt is time to install QEMU along with Virt Manager onto your system. Install the following packages using your distribution’s package manager.\nArch Linux\nsudo pacman -S qemu-desktop virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs\nDebian/Ubuntu\nsudo apt install qemu-system virt-manager libvirt-daemon dnsmasq vde2 bridge-utils netcat-openbsd libguestfs-tools\nFedora\nsudo dnf install @virtualization\n\nNon-systemd distributions\nIf you are using a distribution that does not use systemd, you must install the libvirt daemon package that corresponds to your init system. For example, on an Artix Linux system with OpenRC, you must install libvirt-openrc."
+    "text": "Installation\nIt is time to install QEMU along with Virt Manager onto your system. Install the following packages using your distribution’s package manager.\nArch Linux\nsudo pacman -S qemu-desktop virt-manager virt-viewer dnsmasq vde2 openbsd-netcat libguestfs\nDebian/Ubuntu\nsudo apt install qemu-system virt-manager libvirt-daemon dnsmasq vde2 netcat-openbsd libguestfs-tools\nFedora\nsudo dnf install @virtualization\n\nNon-systemd distributions\nIf you are using a distribution that does not use systemd, you must install the libvirt daemon package that corresponds to your init system. For example, on an Artix Linux system with OpenRC, you must install libvirt-openrc."
   },
   {
     "objectID": "posts/how-to-setup-qemu-virt-manager-tutorial/index.html#modify-configuration-files",
